@@ -1,0 +1,44 @@
+{
+  "name": "@zhanghe/diamond",
+  "version": "1.0.0",
+  "description": "An Obsidian document parser and static site generator",
+  "main": "dist/cli/index.js",
+  "bin": {
+    "diamond": "dist/cli/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/cli/index.ts",
+    "prepare": "pnpm build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "obsidian",
+    "markdown",
+    "static-site-generator",
+    "documentation"
+  ],
+  "author": "zhanghe",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "template"
+  ],
+  "dependencies": {
+    "commander": "^12.1.0",
+    "front-matter": "^4.0.2",
+    "glob": "^11.0.0",
+    "marked": "^15.0.4"
+  },
+  "devDependencies": {
+    "@types/marked": "^5.0.2",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "tsx": "^4.19.2"
+  },
+  "packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf"
+}
