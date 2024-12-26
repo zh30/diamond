@@ -78,7 +78,7 @@ export async function build() {
 
   // Find all markdown files
   const files = await glob('**/*.md', {
-    ignore: ['node_modules/**', 'dist/**', 'README.md']
+    ignore: ['node_modules/**', 'dist/**', '.obsidian/**', 'README.md']
   });
 
   // Create posts directory
