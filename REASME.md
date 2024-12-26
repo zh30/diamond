@@ -13,7 +13,7 @@ Diamond is a modern static site generator designed for Obsidian documents. It co
 
 1. Build your site:
    ```bash
-   npx diamond build
+   npx @zhanghe/diamond build
    ```
 
 2. Your site will be generated in the `dist` directory! 
