@@ -157,13 +157,6 @@ function generatePostHtml(content: string, post: Post, siteData: SiteData): stri
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="${title}">
   <meta name="twitter:description" content="${description}">
-  <style>
-    :root {
-      --primary-color: ${config.theme?.primary || '#3b82f6'};
-      --secondary-color: ${config.theme?.secondary || '#10b981'};
-    }
-  </style>
-  <link rel="stylesheet" href="/assets/index.css">
 </head>
 <body>
   <div id="root">
@@ -202,7 +195,6 @@ function generatePostHtml(content: string, post: Post, siteData: SiteData): stri
       </main>
     </div>
   </div>
-  <script type="module" src="../assets/index.js"></script>
 </body>
 </html>`;
 }
@@ -224,13 +216,6 @@ function generateIndexHtml(siteData: SiteData): string {
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="${config.title}">
   <meta name="twitter:description" content="${config.description}">
-  <style>
-    :root {
-      --primary-color: ${config.theme?.primary || '#3b82f6'};
-      --secondary-color: ${config.theme?.secondary || '#10b981'};
-    }
-  </style>
-  <link rel="stylesheet" href="/assets/index.css">
 </head>
 <body>
   <div id="root">
@@ -274,7 +259,6 @@ function generateIndexHtml(siteData: SiteData): string {
       </div>
     </div>
   </div>
-  <script type="module" src="./assets/index.js"></script>
 </body>
 </html>`;
 } 

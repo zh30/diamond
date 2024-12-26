@@ -13,7 +13,7 @@ const pkg = JSON.parse(readFileSync(join(__dirname, '../../package.json'), 'utf-
 const program = new Command();
 
 program
-  .name('@zhanghe/diamond')
+  .name('diamond')
   .description('An Obsidian document parser and static site generator')
   .version(pkg.version);
 
