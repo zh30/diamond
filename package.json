@@ -1,10 +1,10 @@
 {
-  "name": "diamond",
+  "name": "@zhanghe/diamond",
   "version": "0.0.1",
   "description": "An Obsidian document parser and static site generator",
   "main": "dist/cli/index.js",
   "bin": {
-    "diamond": "dist/cli/index.js"
+    "@zhanghe/diamond": "dist/cli/index.js"
   },
   "type": "module",
   "scripts": {
@@ -20,6 +20,11 @@
     "documentation"
   ],
   "author": "zhanghe",
+  "homepage": "https://diamond.zhanghe.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zh30/diamond.git"
+  },
   "license": "MIT",
   "publishConfig": {
     "access": "public"
