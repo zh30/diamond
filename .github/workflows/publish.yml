@@ -41,9 +41,8 @@ jobs:
           sed -i "s/\"version\": \".*\"/\"version\": \"$version\"/" package.json
           sed -i "s/\"version\": \".*\"/\"version\": \"$version\"/" jsr.json
       - run: |
-          pnpm install --frozen-lockfile
+          pnpm install diamond --frozen-lockfile
           pnpm build
-          ls -l
       - run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
