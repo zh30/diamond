@@ -4,13 +4,17 @@ import { join, dirname } from 'path';
 import { marked } from 'marked';
 import frontMatter from 'front-matter';
 import { fileURLToPath } from 'url';
-
+import HomeTemplate from '../components/homeTemplate.js';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import PostTemplate from '../components/postTemplate.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-interface Config {
+export interface Config {
   title: string;
   description: string;
+  keywords: string;
   baseUrl: string;
   theme?: {
     primary: string;
@@ -18,38 +22,40 @@ interface Config {
   };
 }
 
-interface PageAttributes {
+export interface PageAttributes {
   title?: string;
   description?: string;
   date?: string;
   [key: string]: unknown;
 }
 
-interface FrontMatterResult {
+export interface FrontMatterResult {
   attributes: PageAttributes;
   body: string;
 }
 
-interface Post {
+export interface Post {
   path: string;
   title: string;
   description: string;
+  keywords: string;
   date: string;
   metadata: PageAttributes;
 }
 
-interface PostWithContent extends Post {
+export interface PostWithContent extends Post {
   content: string;
 }
 
-interface SiteData {
+export interface SiteData {
   config: Config;
   posts: Post[];
 }
 
-const DEFAULT_CONFIG: Config = {
+export const DEFAULT_CONFIG: Config = {
   title: 'Diamond Documentation',
   description: 'Documentation generated with Diamond',
+  keywords: 'Documentation, Diamond, Documentation',
   baseUrl: '/',
   theme: {
     primary: '#3b82f6',
@@ -103,6 +109,7 @@ export async function build() {
         path: `posts/${file.replace(/\.md$/, '')}`,
         title: parsed.attributes.title || file.replace(/\.md$/, ''),
         description: parsed.attributes.description || '',
+        keywords: parsed.attributes.keywords || '',
         date,
         metadata: parsed.attributes,
         content: html
@@ -129,7 +136,7 @@ export async function build() {
   for (const post of posts) {
     const outputPath = join(distDir, `${post.path}.html`);
     mkdirSync(dirname(outputPath), { recursive: true });
-    const postHtml = generatePostHtml(post.content, post, siteData);
+    const postHtml = generatePostHtml(post, siteData);
     writeFileSync(outputPath, postHtml);
   }
 
@@ -138,127 +145,17 @@ export async function build() {
   writeFileSync(join(distDir, 'index.html'), indexHtml);
 }
 
-function generatePostHtml(content: string, post: Post, siteData: SiteData): string {
-  const { title, description, path, date } = post;
-  const { config, posts } = siteData;
+function generatePostHtml(post: PostWithContent, siteData: SiteData): string {
+  const reactElement = React.createElement(PostTemplate, { post });
+  const html = '<!DOCTYPE html>' + ReactDOMServer.renderToString(reactElement);
 
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} - ${config.title}</title>
-  <meta name="description" content="${description}">
-  <link rel="canonical" href="/${path}">
-  <meta property="og:title" content="${title}">
-  <meta property="og:description" content="${description}">
-  <meta property="og:type" content="article">
-  <meta property="article:published_time" content="${date}">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="${title}">
-  <meta name="twitter:description" content="${description}">
-</head>
-<body>
-  <div id="root">
-    <div class="flex min-h-screen bg-gray-50">
-      <aside class="w-64 bg-white border-r border-gray-200 p-6">
-        <a href="/" class="block">
-          <h1 class="text-2xl font-bold text-gray-900 mb-8">${config.title}</h1>
-        </a>
-        <nav>
-          <div class="mb-4 text-sm font-medium text-gray-500">Recent Posts</div>
-          <ul class="space-y-2">
-            ${posts.slice(0, 5).map((p) => `
-              <li>
-                <a
-                  href="/${p.path}"
-                  class="block px-4 py-2 rounded-lg transition-colors ${p.path === path
-      ? 'bg-primary text-white'
-      : 'text-gray-600 hover:bg-gray-100'
-    }"
-                >
-                  ${p.title}
-                </a>
-              </li>
-            `).join('')}
-          </ul>
-        </nav>
-      </aside>
-      <main class="flex-1 p-8">
-        <article class="prose prose-slate max-w-none">
-          <header class="mb-8">
-            <h1 class="mb-2">${title}</h1>
-            <div class="text-gray-500">${new Date(date).toLocaleDateString()}</div>
-          </header>
-          ${content}
-        </article>
-      </main>
-    </div>
-  </div>
-</body>
-</html>`;
+  return html;
 }
 
 function generateIndexHtml(siteData: SiteData): string {
   const { config, posts } = siteData;
+  const reactElement = React.createElement(HomeTemplate, { posts });
+  const html = '<!DOCTYPE html>' + ReactDOMServer.renderToString(reactElement);
 
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${config.title}</title>
-  <meta name="description" content="${config.description}">
-  <link rel="canonical" href="/">
-  <meta property="og:title" content="${config.title}">
-  <meta property="og:description" content="${config.description}">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="${config.title}">
-  <meta name="twitter:description" content="${config.description}">
-</head>
-<body>
-  <div id="root">
-    <div class="flex min-h-screen bg-gray-50">
-      <aside class="w-64 bg-white border-r border-gray-200 p-6">
-        <a href="/" class="block">
-          <h1 class="text-2xl font-bold text-gray-900 mb-8">${config.title}</h1>
-        </a>
-        <nav>
-          <div class="mb-4 text-sm font-medium text-gray-500">Recent Posts</div>
-          <ul class="space-y-2">
-            ${posts.slice(0, 5).map((post) => `
-              <li>
-                <a
-                  href="/${post.path}"
-                  class="block px-4 py-2 rounded-lg transition-colors text-gray-600 hover:bg-gray-100"
-                >
-                  ${post.title}
-                </a>
-              </li>
-            `).join('')}
-          </ul>
-        </nav>
-      </aside>
-      <main class="flex-1 p-8">
-        <div class="max-w-4xl mx-auto">
-          <h1 class="text-3xl font-bold text-gray-900 mb-8">Latest Posts</h1>
-          <div class="space-y-8">
-            ${posts.map((post) => `
-              <article class="bg-white rounded-lg shadow-sm p-6">
-                <h2 class="text-2xl font-bold text-gray-900 mb-2">
-                  <a href="/${post.path}" class="hover:text-primary">${post.title}</a>
-                </h2>
-                <div class="text-gray-500 mb-4">${new Date(post.date).toLocaleDateString()}</div>
-                ${post.description ? `<p class="text-gray-600 mb-4">${post.description}</p>` : ''}
-                <a href="/${post.path}" class="text-primary hover:text-primary/80">Read more →</a>
-              </article>
-            `).join('')}
-          </div>
-        </main>
-      </div>
-    </div>
-  </div>
-</body>
-</html>`;
+  return html;
 } 
