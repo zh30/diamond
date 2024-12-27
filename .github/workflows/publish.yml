@@ -24,6 +24,8 @@ jobs:
   publish:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
@@ -38,8 +40,8 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
       - name: Update version in package.json
         run: |
-          sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" package.json
-          sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" jsr.json
+          sed -i "s/\"version\": \".*\"/\"version\": \"$version\"/" package.json
+          sed -i "s/\"version\": \".*\"/\"version\": \"$version\"/" jsr.json
       - run: |
           pnpm install --frozen-lockfile
           pnpm build
