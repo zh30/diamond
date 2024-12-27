@@ -41,9 +41,9 @@ jobs:
           sed -i "s/\"version\": \".*\"/\"version\": \"$version\"/" package.json
           sed -i "s/\"version\": \".*\"/\"version\": \"$version\"/" jsr.json
       - run: |
-          pnpm install diamond --frozen-lockfile
+          pnpm install --frozen-lockfile
           pnpm build
-      - run: pnpm publish --access public --no-git-checks
+      - run: pnpm publish diamond --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Publish JSR package
