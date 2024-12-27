@@ -38,9 +38,8 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
       - name: Update version in package.json
         run: |
-          sed -i "s/\"version\": \".*\"/\"version\": \"$version\"/" package.json
-          sed -i "s/\"version\": \".*\"/\"version\": \"$version\"/" jsr.json
-          cat package.json
+          sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" package.json
+          sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" jsr.json
       - run: |
           pnpm install --frozen-lockfile
           pnpm build
