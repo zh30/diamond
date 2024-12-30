@@ -63,6 +63,28 @@ export const DEFAULT_CONFIG: Config = {
   }
 };
 
+function generateSitemap(config: Config, posts: Post[]): string {
+  const baseUrl = config.baseUrl.endsWith('/') ? config.baseUrl : `${config.baseUrl}/`;
+  const today = new Date().toISOString().split('T')[0];
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${baseUrl}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  ${posts.map(post => `
+  <url>
+    <loc>${baseUrl}${post.path}.html</loc>
+    <lastmod>${post.date}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join('')}
+</urlset>`;
+}
+
 export async function build() {
   const cwd = process.cwd();
 
@@ -131,6 +153,10 @@ export async function build() {
     join(distDir, 'site-data.json'),
     JSON.stringify(siteData, null, 2)
   );
+
+  // Generate sitemap.xml
+  const sitemap = generateSitemap(config, siteData.posts);
+  writeFileSync(join(distDir, 'sitemap.xml'), sitemap);
 
   // Generate post HTML files
   for (const post of posts) {
