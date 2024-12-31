@@ -1,5 +1,5 @@
-import type { Post } from '../parser/build.js';
-import Template from './template.js';
+import type { Post } from '../parser/build';
+import Template from './template';
 
 export default function HomeTemplate(
   {
@@ -12,7 +12,7 @@ export default function HomeTemplate(
 
   return (
     <Template>
-      <div>
+      <div className="container mx-auto flex gap-4 h-screen">
         <aside>
           <nav>
             <ul>

@@ -1,15 +1,12 @@
 import { glob } from 'glob';
-import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, copyFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { marked } from 'marked';
 import frontMatter from 'front-matter';
-import { fileURLToPath } from 'url';
-import HomeTemplate from '../components/homeTemplate.js';
+import HomeTemplate from '@/components/homeTemplate';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import PostTemplate from '../components/postTemplate.js';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import PostTemplate from '@/components/postTemplate';
 
 export interface Config {
   title: string;

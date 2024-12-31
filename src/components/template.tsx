@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG } from '../parser/build.js';
+import { DEFAULT_CONFIG } from '../parser/build';
 
 export default function Template({
   children,
@@ -26,8 +26,9 @@ export default function Template({
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
+        <script src="https://cdn.tailwindcss.com"></script>
       </head>
-      <body>{children}</body>
+      <body className="bg-gray-100">{children}</body>
     </html>
   );
 }

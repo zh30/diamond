@@ -2,15 +2,14 @@
   "name": "@zhanghe/diamond",
   "version": "0.0.3",
   "description": "An Obsidian document parser and static site generator",
-  "main": "dist/cli/index.js",
+  "main": "dist/index.js",
   "bin": {
-    "@zhanghe/diamond": "dist/cli/index.js"
+    "@zhanghe/diamond": "dist/index.js"
   },
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "dev": "tsx watch src/cli/index.ts",
-    "prepare": "pnpm build",
+    "build": "vite build",
+    "dev": "vite build --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -42,12 +41,17 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
     "@types/marked": "^5.0.2",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "vite": "^5.0.8"
   },
-  "packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf"
+  "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321"
 }

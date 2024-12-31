@@ -1,5 +1,5 @@
-import Template from './template.js';
-import type { PostWithContent } from '../parser/build.js';
+import Template from './template';
+import type { PostWithContent } from '../parser/build';
 
 export default function PostTemplate({
   post,
