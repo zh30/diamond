@@ -33,7 +33,7 @@ export default defineConfig({
         inlineDynamicImports: true,
       },
     },
-    target: 'node18',
+    target: 'node22',
     sourcemap: false,
     assetsInlineLimit: Infinity,
     cssCodeSplit: false,
