@@ -101,6 +101,9 @@ export async function build() {
   }
   mkdirSync(distDir, { recursive: true });
 
+  // 把 @zhanghe/diamond 中 dist 目录下的 style.css 复制到 dist 目录下
+  copyFileSync(join(cwd, 'node_modules/@zhanghe/diamond/dist/style.css'), join(distDir, 'style.css'));
+
   // Find all markdown files
   const files = await glob('**/*.md', {
     ignore: ['node_modules/**', 'dist/**', '.obsidian/**', 'README.md']

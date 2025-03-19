@@ -1,4 +1,5 @@
 import { DEFAULT_CONFIG } from '../parser/build';
+import '@/styles/main.css';
 
 export default function Template({
   children,
@@ -20,13 +21,13 @@ export default function Template({
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
         <link rel="canonical" href={path} />
+        <link rel="stylesheet" href="/style.css" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <script src="https://cdn.tailwindcss.com"></script>
       </head>
       <body className="bg-gray-100">{children}</body>
     </html>

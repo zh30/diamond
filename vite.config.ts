@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
-import tailwindcss from 'tailwindcss';
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/cli/index.ts'),
@@ -38,13 +38,6 @@ export default defineConfig({
     cssCodeSplit: false,
     cssMinify: true,
     emptyOutDir: true,
-  },
-  css: {
-    postcss: {
-      plugins: [
-        tailwindcss,
-      ],
-    },
   },
   resolve: {
     alias: {
