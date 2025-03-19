@@ -4,8 +4,8 @@ import { join, dirname } from 'path';
 import { marked } from 'marked';
 import frontMatter from 'front-matter';
 import HomeTemplate from '@/components/homeTemplate';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
 import PostTemplate from '@/components/postTemplate';
 
 export interface Config {
