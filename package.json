@@ -1,6 +1,6 @@
 {
   "name": "@zhanghe/diamond",
-  "version": "0.0.4",
+  "version": "0.0.42",
   "description": "An Obsidian document parser and static site generator",
   "main": "dist/index.js",
   "bin": {

@@ -1,5 +1,5 @@
 import { DEFAULT_CONFIG } from '../parser/build';
-import '@/styles/main.css';
+// import '@/styles/main.css';
 
 export default function Template({
   children,
@@ -17,6 +17,8 @@ export default function Template({
   return (
     <html lang="en">
       <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
@@ -28,6 +30,7 @@ export default function Template({
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
       </head>
       <body className="bg-gray-100">{children}</body>
     </html>
